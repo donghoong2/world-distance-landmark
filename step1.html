@@ -94,8 +94,8 @@
   <footer>거리는 비행 항로가 아니라 지구 위 두 지점 사이의 최단 직선거리(대권거리)를 계산한 값입니다.</footer>
 </div>
 
-<script src="./서울과 세계 여러 나라 사이의 거리 알아보기_files/d3.min.js.다운로드"></script>
-<script src="./서울과 세계 여러 나라 사이의 거리 알아보기_files/topojson-client.min.js.다운로드"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <script>
 (function(){
   const seoul = { lon: 126.9780, lat: 37.5665 };
@@ -160,6 +160,7 @@
 
   const width = 680, height = 340;
   const svg = d3.select("#map");
+  svg.selectAll("*").remove();
   const projection = d3.geoEquirectangular().fitSize([width-20, height-20], {type:"Sphere"}).translate([width/2, height/2]);
   const path = d3.geoPath(projection);
 
