@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<!-- saved from url=(0162)file:///C:/Users/%EC%A0%95%EC%A7%80%EC%9C%A4/Downloads/%EC%84%B8%EA%B3%84_%EB%9E%9C%EB%93%9C%EB%A7%88%ED%81%AC%EC%99%80_%EB%A7%9B%EC%A7%91_%ED%83%90%ED%97%98.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>세계 랜드마크와 맛집 탐험하기</title>
+<style>
+  :root {
+    --surface-0: #f7f6f2;
+    --surface-1: #f1efe8;
+    --surface-2: #ffffff;
+    --text-primary: #1c1c1a;
+    --text-secondary: #5f5e5a;
+    --text-muted: #888780;
+    --border: #d3d1c7;
+    --border-strong: #b4b2a9;
+    --accent: #185fa5;
+    --accent-bg: #e6f1fb;
+    --radius: 8px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-0: #1c1c1a;
+      --surface-1: #2c2c2a;
+      --surface-2: #232321;
+      --text-primary: #f1efe8;
+      --text-secondary: #b4b2a9;
+      --text-muted: #888780;
+      --border: #444441;
+      --border-strong: #5f5e5a;
+      --accent: #85b7eb;
+      --accent-bg: #042c53;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--surface-0);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Helvetica, Arial, sans-serif;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 6px; }
+  h2 { font-size: 16px; font-weight: 600; margin: 28px 0 12px; }
+  .sub { font-size: 13px; color: var(--text-secondary); margin: 0 0 18px; }
+  select {
+    height: 40px;
+    width: 100%;
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface-2);
+    color: var(--text-primary);
+    padding: 0 10px;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  #viewer-wrap {
+    background: var(--surface-1);
+    border-radius: 12px;
+    padding: 12px;
+    margin: 14px 0 22px;
+    display: none;
+  }
+  #viewer-title { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+  #viewer-desc { font-size: 13px; color: var(--text-secondary); margin: 0 0 10px; }
+  #streetview-frame {
+    width: 100%;
+    height: 360px;
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--surface-2);
+  }
+  .viewer-links { margin-top: 8px; font-size: 12px; }
+  .viewer-links a { color: var(--accent); text-decoration: none; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: var(--surface-2);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .card:hover { border-color: var(--border-strong); }
+  .card.active { border: 2px solid var(--accent); background: var(--accent-bg); }
+  .card-name { font-size: 14px; font-weight: 600; margin: 0 0 4px; }
+  .card-desc { font-size: 12.5px; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+  .card-meta { font-size: 11.5px; color: var(--text-muted); margin: 6px 0 0; }
+  .rating-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: var(--radius);
+    background: var(--accent-bg);
+    color: var(--accent);
+    margin-left: 6px;
+  }
+  #empty-state { font-size: 14px; color: var(--text-muted); padding: 20px 0; }
+  footer { margin-top: 30px; font-size: 12px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>세계 랜드마크와 맛집 탐험하기</h1>
+  <p class="sub">나라를 선택하면 대표 랜드마크 5곳과 실제 식당 3곳을 볼 수 있어요. 각 장소를 클릭하면 스트리트뷰로 실제 모습을 살펴볼 수 있습니다.</p>
+
+  <select id="country-select"><option value="">나라를 선택하세요</option><option value="미국">미국</option><option value="캐나다">캐나다</option><option value="멕시코">멕시코</option><option value="브라질">브라질</option><option value="아르헨티나">아르헨티나</option><option value="페루">페루</option><option value="영국">영국</option><option value="프랑스">프랑스</option><option value="독일">독일</option><option value="이탈리아">이탈리아</option><option value="스페인">스페인</option><option value="스위스">스위스</option><option value="러시아">러시아</option><option value="중국">중국</option><option value="일본">일본</option><option value="태국">태국</option><option value="베트남">베트남</option><option value="인도">인도</option><option value="싱가포르">싱가포르</option><option value="필리핀">필리핀</option><option value="튀르키예">튀르키예</option><option value="아랍에미리트">아랍에미리트</option><option value="이집트">이집트</option><option value="남아프리카공화국">남아프리카공화국</option><option value="케냐">케냐</option><option value="모로코">모로코</option><option value="호주">호주</option><option value="뉴질랜드">뉴질랜드</option></select>
+
+  <div id="viewer-wrap" style="display: block;">
+    <p id="viewer-title">자유의 여신상</p>
+    <p id="viewer-desc">뉴욕 항구에 서 있는 자유의 상징 조각상.</p>
+    <iframe id="streetview-frame" loading="lazy" allowfullscreen="" src="./세계 랜드마크와 맛집 탐험하기_files/maps.html"></iframe>
+    <div class="viewer-links"><a id="viewer-maps-link" href="https://www.google.com/maps/search/?api=1&amp;query=40.6892,-74.0445" target="_blank" rel="noopener">구글 지도에서 크게 보기 →</a></div>
+  </div>
+
+  <div id="empty-state" style="display: none;">위에서 나라를 선택해 보세요.</div>
+
+  <div id="content" style="display: block;">
+    <h2>대표 랜드마크</h2>
+    <div class="grid" id="landmark-grid"><div class="card"><p class="card-name">자유의 여신상</p><p class="card-desc">뉴욕 항구에 서 있는 자유의 상징 조각상.</p></div><div class="card"><p class="card-name">금문교</p><p class="card-desc">샌프란시스코의 상징적인 주황색 현수교.</p></div><div class="card"><p class="card-name">그랜드 캐니언</p><p class="card-desc">콜로라도강이 깎아낸 거대한 협곡.</p></div><div class="card"><p class="card-name">백악관</p><p class="card-desc">미국 대통령이 거주하고 집무하는 관저.</p></div><div class="card"><p class="card-name">타임스스퀘어</p><p class="card-desc">뉴욕 맨해튼의 번화한 광장이자 상업 중심지.</p></div></div>
+
+    <h2>실제 식당</h2>
+    <div class="grid" id="restaurant-grid"><div class="card"><p class="card-name">Founding Farmers DC<span class="rating-badge">★ 4.5</span></p><p class="card-meta">1924 Pennsylvania Ave NW, Washington DC</p></div><div class="card"><p class="card-name">Old Ebbitt Grill<span class="rating-badge">★ 4.6</span></p><p class="card-meta">675 15th St NW, Washington DC</p></div><div class="card"><p class="card-name">Pink Tiger on the Wharf<span class="rating-badge">★ 4.8</span></p><p class="card-meta">751 Wharf St SW, Washington DC</p></div></div>
+  </div>
+
+  <footer>랜드마크 좌표는 일반적으로 알려진 위치 기준이며, 식당 정보는 구글 지도 검색 결과를 바탕으로 한 실제 영업 중인 장소입니다. 스트리트뷰 이미지는 구글의 촬영 범위에 따라 일부 장소에서 제공되지 않을 수 있습니다.</footer>
+</div>
+
+<script>
+const DATA = {
+  "미국": {
+    landmarks: [
+      { name: "자유의 여신상", desc: "뉴욕 항구에 서 있는 자유의 상징 조각상.", lat: 40.6892, lon: -74.0445 },
+      { name: "금문교", desc: "샌프란시스코의 상징적인 주황색 현수교.", lat: 37.8199, lon: -122.4783 },
+      { name: "그랜드 캐니언", desc: "콜로라도강이 깎아낸 거대한 협곡.", lat: 36.1069, lon: -112.1129 },
+      { name: "백악관", desc: "미국 대통령이 거주하고 집무하는 관저.", lat: 38.8977, lon: -77.0365 },
+      { name: "타임스스퀘어", desc: "뉴욕 맨해튼의 번화한 광장이자 상업 중심지.", lat: 40.7580, lon: -73.9855 }
+    ],
+    restaurants: [
+      { name: "Founding Farmers DC", address: "1924 Pennsylvania Ave NW, Washington DC", lat: 38.9003, lon: -77.0445, rating: 4.5 },
+      { name: "Old Ebbitt Grill", address: "675 15th St NW, Washington DC", lat: 38.8979, lon: -77.0332, rating: 4.6 },
+      { name: "Pink Tiger on the Wharf", address: "751 Wharf St SW, Washington DC", lat: 38.8788, lon: -77.0244, rating: 4.8 }
+    ]
+  },
+  "캐나다": {
+    landmarks: [
+      { name: "나이아가라 폭포", desc: "캐나다와 미국 국경에 걸친 거대한 폭포.", lat: 43.0962, lon: -79.0377 },
+      { name: "CN 타워", desc: "토론토의 상징인 553m 높이의 전망탑.", lat: 43.6426, lon: -79.3871 },
+      { name: "밴프 국립공원", desc: "로키산맥 속 호수와 설산이 어우러진 국립공원.", lat: 51.4968, lon: -115.9281 },
+      { name: "파를리아먼트 힐", desc: "캐나다 국회의사당이 자리한 오타와의 언덕.", lat: 45.4236, lon: -75.7009 },
+      { name: "올드 퀘벡", desc: "북미에 남은 유럽풍 성곽 도시.", lat: 46.8123, lon: -71.2048 }
+    ],
+    restaurants: [
+      { name: "ALORA Ottawa & ALORA Rooftop", address: "34 Clarence St, Ottawa", lat: 45.4283, lon: -75.6943, rating: 4.6 },
+      { name: "Supply and Demand", address: "1335 Wellington St W, Ottawa", lat: 45.3987, lon: -75.7373, rating: 4.8 },
+      { name: "Ratatouille Bistro", address: "278 Dalhousie St, Ottawa", lat: 45.4300, lon: -75.6922, rating: 4.7 }
+    ]
+  },
+  "멕시코": {
+    landmarks: [
+      { name: "치첸이차", desc: "마야 문명의 피라미드 유적.", lat: 20.6843, lon: -88.5678 },
+      { name: "테오티우아칸", desc: "태양의 피라미드가 있는 고대 도시 유적.", lat: 19.6925, lon: -98.8438 },
+      { name: "소칼로 광장", desc: "멕시코시티 중심의 대광장.", lat: 19.4326, lon: -99.1332 },
+      { name: "프리다 칼로 박물관", desc: "화가 프리다 칼로가 살던 파란 집 박물관.", lat: 19.3551, lon: -99.1624 },
+      { name: "툴룸 유적", desc: "카리브해를 바라보는 마야 유적지.", lat: 20.2145, lon: -87.4295 }
+    ],
+    restaurants: [
+      { name: "Ling Ling by Hakkasan", address: "Av. Reforma 509, Ciudad de México", lat: 19.4240, lon: -99.1758, rating: 4.9 },
+      { name: "El Cardenal", address: "Calle Palma 23, Centro Histórico", lat: 19.4337, lon: -99.1353, rating: 4.6 },
+      { name: "Limosneros", address: "C. Allende 3, Centro Histórico", lat: 19.4361, lon: -99.1378, rating: 4.5 }
+    ]
+  },
+  "브라질": {
+    landmarks: [
+      { name: "거대한 예수상", desc: "리우 코르코바두 산 위의 거대한 예수상.", lat: 22.9519, lon: -43.2105 },
+      { name: "슈가로프 산", desc: "케이블카로 오르는 리우의 명물 봉우리.", lat: 22.9490, lon: -43.1546 },
+      { name: "이구아수 폭포", desc: "세계 최대급 규모의 웅장한 폭포.", lat: -25.6953, lon: -54.4367 },
+      { name: "코파카바나 해변", desc: "리우를 대표하는 초승달 모양 해변.", lat: -22.9711, lon: -43.1822 },
+      { name: "아마존 열대우림 (마나우스)", desc: "지구 최대의 열대우림 관문 도시.", lat: -3.1190, lon: -60.0217 }
+    ],
+    restaurants: [
+      { name: "Marius Degustare", address: "Av. Atlântica 290, Copacabana", lat: -22.9620, lon: -43.1663, rating: 4.8 },
+      { name: "Marine Restô", address: "Av. Atlântica 4240, Copacabana", lat: -22.9861, lon: -43.1893, rating: 4.5 },
+      { name: "Aprazível", address: "R. Aprazível 62, Santa Teresa", lat: -22.9248, lon: -43.1875, rating: 4.3 }
+    ]
+  },
+  "아르헨티나": {
+    landmarks: [
+      { name: "페리토 모레노 빙하", desc: "여전히 살아 움직이는 거대한 빙하.", lat: -50.4967, lon: -73.1379 },
+      { name: "부에노스아이레스 오벨리스크", desc: "부에노스아이레스를 상징하는 오벨리스크.", lat: -34.6037, lon: -58.3816 },
+      { name: "라 보카 (카미니토)", desc: "알록달록한 집들이 늘어선 항구 예술 거리.", lat: -34.6345, lon: -58.3631 },
+      { name: "이구아수 폭포 (아르헨티나 쪽)", desc: "협곡 전망대에서 폭포를 가까이 볼 수 있는 곳.", lat: -25.6953, lon: -54.4367 },
+      { name: "레콜레타 묘지", desc: "에비타가 잠든 화려한 조각 묘지.", lat: -34.5875, lon: -58.3931 }
+    ],
+    restaurants: [
+      { name: "Puny - Pasta & Grill", address: "Av. Corrientes 1269, Buenos Aires", lat: -34.6037, lon: -58.3847, rating: 4.9 },
+      { name: "Fogón Asado", address: "Gorriti 3780, Buenos Aires", lat: -34.5957, lon: -58.4182, rating: 4.7 },
+      { name: "La Choripanería", address: "Bolívar 954, San Telmo", lat: -34.6193, lon: -58.3724, rating: 4.8 }
+    ]
+  },
+  "페루": {
+    landmarks: [
+      { name: "마추픽추", desc: "안데스 산 속 잉카 문명의 공중 도시.", lat: -13.1631, lon: -72.5450 },
+      { name: "나스카 라인", desc: "사막 위에 그려진 거대한 지상화.", lat: -14.7390, lon: -75.1300 },
+      { name: "성스러운 계곡", desc: "잉카 유적이 흩어진 안데스의 계곡.", lat: -13.3200, lon: -72.1100 },
+      { name: "티티카카 호수", desc: "세계에서 가장 높은 곳에 위치한 호수.", lat: -15.8422, lon: -69.3350 },
+      { name: "아르마스 광장 (리마)", desc: "리마 구시가지의 중심 광장.", lat: -12.0464, lon: -77.0300 }
+    ],
+    restaurants: [
+      { name: "Panchita - Miraflores", address: "C. 2 de Mayo 298, Miraflores", lat: -12.1178, lon: -77.0312, rating: 4.6 },
+      { name: "Central", address: "Av. Pedro de Osma 301, Barranco", lat: -12.1526, lon: -77.0225, rating: 4.6 },
+      { name: "Maido", address: "Ca. San Martín 399, Miraflores", lat: -12.1254, lon: -77.0306, rating: 4.7 }
+    ]
+  },
+  "영국": {
+    landmarks: [
+      { name: "빅벤", desc: "런던을 상징하는 시계탑.", lat: 51.5007, lon: -0.1246 },
+      { name: "타워 브리지", desc: "템스강을 가로지르는 도개교.", lat: 51.5055, lon: -0.0754 },
+      { name: "스톤헨지", desc: "선사시대 거석이 원형으로 배치된 유적.", lat: 51.1789, lon: -1.8262 },
+      { name: "버킹엄 궁전", desc: "영국 왕실의 공식 관저.", lat: 51.5014, lon: -0.1419 },
+      { name: "런던 아이", desc: "템스강변의 대형 관람차.", lat: 51.5033, lon: -0.1196 }
+    ],
+    restaurants: [
+      { name: "Circolo Popolare", address: "40-41 Rathbone Pl, London", lat: 51.5172, lon: -0.1339, rating: 4.8 },
+      { name: "Fallow", address: "52 Haymarket, London", lat: 51.5094, lon: -0.1328, rating: 4.7 },
+      { name: "Evelyn's Table", address: "28 Rupert St, London", lat: 51.5111, lon: -0.1326, rating: 4.9 }
+    ]
+  },
+  "프랑스": {
+    landmarks: [
+      { name: "에펠탑", desc: "파리를 대표하는 철제 탑.", lat: 48.8584, lon: 2.2945 },
+      { name: "루브르 박물관", desc: "모나리자가 전시된 세계 최대 미술관.", lat: 48.8606, lon: 2.3376 },
+      { name: "노트르담 대성당", desc: "고딕 양식의 상징적인 대성당.", lat: 48.8530, lon: 2.3499 },
+      { name: "베르사유 궁전", desc: "화려한 정원을 가진 프랑스 왕궁.", lat: 48.8049, lon: 2.1204 },
+      { name: "몽생미셸", desc: "밀물 때 섬이 되는 수도원 마을.", lat: 48.6361, lon: -1.5115 }
+    ],
+    restaurants: [
+      { name: "Bouillon République", address: "39 Bd du Temple, Paris", lat: 48.8661, lon: 2.3646, rating: 4.7 },
+      { name: "Pink Mamma", address: "20bis Rue de Douai, Paris", lat: 48.8819, lon: 2.3345, rating: 4.7 },
+      { name: "Le Ju'", address: "16 Rue des Archives, Paris", lat: 48.8577, lon: 2.3548, rating: 4.8 }
+    ]
+  },
+  "독일": {
+    landmarks: [
+      { name: "브란덴부르크 문", desc: "베를린의 상징적인 개선문.", lat: 52.5163, lon: 13.3777 },
+      { name: "노이슈반슈타인 성", desc: "동화 속 성의 모델이 된 궁전.", lat: 47.5576, lon: 10.7498 },
+      { name: "쾰른 대성당", desc: "쾰른의 거대한 고딕 대성당.", lat: 50.9413, lon: 6.9583 },
+      { name: "베를린 장벽 기념관", desc: "냉전의 상징이었던 베를린 장벽 유적.", lat: 52.5351, lon: 13.3903 },
+      { name: "국회의사당 (라이히슈타크)", desc: "유리 돔이 있는 독일 국회의사당.", lat: 52.5186, lon: 13.3762 }
+    ],
+    restaurants: [
+      { name: "BLESS Restaurant", address: "Hausvogteipl. 10, Berlin", lat: 52.5124, lon: 13.3968, rating: 4.8 },
+      { name: "Pantry", address: "Friedrichstraße 120, Berlin", lat: 52.5266, lon: 13.3869, rating: 4.8 },
+      { name: "Nante-Eck", address: "Unter den Linden 35, Berlin", lat: 52.5167, lon: 13.3883, rating: 4.6 }
+    ]
+  },
+  "이탈리아": {
+    landmarks: [
+      { name: "콜로세움", desc: "고대 로마의 원형 경기장.", lat: 41.8902, lon: 12.4922 },
+      { name: "피사의 사탑", desc: "기울어진 채로 유명한 피사의 탑.", lat: 43.7230, lon: 10.3966 },
+      { name: "베네치아 대운하", desc: "베네치아를 가로지르는 대운하.", lat: 45.4375, lon: 12.3358 },
+      { name: "트레비 분수", desc: "동전을 던지면 소원이 이뤄진다는 분수.", lat: 41.9009, lon: 12.4833 },
+      { name: "폼페이 유적", desc: "화산재에 묻혔던 고대 로마 도시 유적.", lat: 40.7461, lon: 14.4989 }
+    ],
+    restaurants: [
+      { name: "Pane e Salame", address: "Via Santa Maria in Via 19, Roma", lat: 41.9006, lon: 12.4818, rating: 4.8 },
+      { name: "Cantina e Cucina", address: "V. del Governo Vecchio 87, Roma", lat: 41.8979, lon: 12.4716, rating: 4.6 },
+      { name: "Osteria da Fortunata", address: "Via del Pellegrino 11/12, Roma", lat: 41.8961, lon: 12.4717, rating: 4.4 }
+    ]
+  },
+  "스페인": {
+    landmarks: [
+      { name: "사그라다 파밀리아", desc: "가우디가 설계한 미완성 대성당.", lat: 41.4036, lon: 2.1744 },
+      { name: "알함브라 궁전", desc: "그라나다의 이슬람 양식 궁전 요새.", lat: 37.1760, lon: -3.5881 },
+      { name: "구엘 공원", desc: "가우디의 독창적인 타일 장식 공원.", lat: 41.4145, lon: 2.1527 },
+      { name: "마요르 광장", desc: "마드리드 구시가지의 중심 광장.", lat: 40.4155, lon: -3.7074 },
+      { name: "프라도 미술관", desc: "스페인 최고의 회화 컬렉션을 보유한 미술관.", lat: 40.4138, lon: -3.6921 }
+    ],
+    restaurants: [
+      { name: "D-Sunset Madrid", address: "C. de Espoz y Mina 14, Madrid", lat: 40.4156, lon: -3.7024, rating: 4.9 },
+      { name: "La Mi Venta", address: "Pl. de la Marina Española 7, Madrid", lat: 40.4204, lon: -3.7125, rating: 4.7 },
+      { name: "Los Montes de Galicia", address: "C. de Azcona 46, Madrid", lat: 40.4347, lon: -3.6684, rating: 4.8 }
+    ]
+  },
+  "스위스": {
+    landmarks: [
+      { name: "마터호른", desc: "알프스를 대표하는 뾰족한 봉우리.", lat: 45.9763, lon: 7.6586 },
+      { name: "카펠교", desc: "루체른의 목조 지붕 다리.", lat: 47.0505, lon: 8.3064 },
+      { name: "융프라우요흐", desc: "유럽에서 가장 높은 기차역이 있는 곳.", lat: 46.5474, lon: 7.9852 },
+      { name: "레만 호수", desc: "제네바를 감싸는 아름다운 호수.", lat: 46.4312, lon: 6.9107 },
+      { name: "라인 폭포", desc: "유럽에서 가장 큰 폭포.", lat: 47.6779, lon: 8.6156 }
+    ],
+    restaurants: [
+      { name: "Mill'Feuille", address: "Mühlenpl. 6, Luzern", lat: 47.0518, lon: 8.3032, rating: 4.4 },
+      { name: "Osteria Valle di Zerz", address: "Spitalstrasse 21, Luzern", lat: 47.0586, lon: 8.3006, rating: 4.9 },
+      { name: "Old Swiss House", address: "Löwenpl. 4, Luzern", lat: 47.0573, lon: 8.3111, rating: 4.5 }
+    ]
+  },
+  "러시아": {
+    landmarks: [
+      { name: "붉은 광장", desc: "모스크바 크렘린 앞의 광장.", lat: 55.7539, lon: 37.6208 },
+      { name: "성 바실리 대성당", desc: "알록달록한 양파돔이 인상적인 성당.", lat: 55.7525, lon: 37.6231 },
+      { name: "에르미타주 박물관", desc: "상트페테르부르크의 대규모 예술 박물관.", lat: 59.9398, lon: 30.3146 },
+      { name: "크렘린", desc: "러시아 대통령 집무 공간이 있는 요새.", lat: 55.7520, lon: 37.6175 },
+      { name: "바이칼 호수", desc: "세계에서 가장 깊은 담수호.", lat: 53.5587, lon: 108.1650 }
+    ],
+    restaurants: [
+      { name: "Cafe Pushkin", address: "Tverskoy Blvd 26A, Moskva", lat: 55.7637, lon: 37.6049, rating: 4.6 },
+      { name: "Grand Cafe Dr. Jhivago", address: "Mokhovaya St 15, Moskva", lat: 55.7568, lon: 37.6141, rating: 4.4 },
+      { name: "White Rabbit", address: "Smolenskaya Square 3, Moskva", lat: 55.7474, lon: 37.5814, rating: 4.4 }
+    ]
+  },
+  "중국": {
+    landmarks: [
+      { name: "만리장성", desc: "수천 킬로미터에 걸친 고대 방어 성벽.", lat: 40.4319, lon: 116.5704 },
+      { name: "자금성", desc: "명·청 황제가 살던 궁궐.", lat: 39.9163, lon: 116.3972 },
+      { name: "병마용", desc: "진시황릉을 지키는 병마용 병사들.", lat: 34.3841, lon: 109.2785 },
+      { name: "와이탄 (상하이)", desc: "황푸강변의 근대 건축물 거리.", lat: 31.2397, lon: 121.4900 },
+      { name: "리강 (구이린)", desc: "기암 봉우리가 늘어선 강 풍경.", lat: 25.2342, lon: 110.4381 }
+    ],
+    restaurants: [
+      { name: "Xinjiang Flavor Yidecun", address: "7 Wangfujing Xi Jie, Beijing", lat: 39.9142, lon: 116.4089, rating: 4.9 },
+      { name: "Xinrongji", address: "Xinyuan Nan Lu, Beijing", lat: 39.9474, lon: 116.4564, rating: 4.4 },
+      { name: "Jing (Peninsula Beijing)", address: "Jin Yu Hutong 8, Beijing", lat: 39.9150, lon: 116.4164, rating: 4.6 }
+    ]
+  },
+  "일본": {
+    landmarks: [
+      { name: "후지산", desc: "일본을 상징하는 활화산.", lat: 35.3606, lon: 138.7274 },
+      { name: "후시미 이나리 신사", desc: "수천 개의 붉은 도리이가 늘어선 신사.", lat: 34.9671, lon: 135.7727 },
+      { name: "도쿄타워", desc: "도쿄의 상징적인 전파탑.", lat: 35.6586, lon: 139.7454 },
+      { name: "킨카쿠지", desc: "금박으로 뒤덮인 교토의 사찰.", lat: 35.0394, lon: 135.7292 },
+      { name: "시부야 스크램블", desc: "세계에서 가장 붐비는 횡단보도.", lat: 35.6595, lon: 139.7005 }
+    ],
+    restaurants: [
+      { name: "Gyopao Gyoza Shinjuku", address: "3-chōme-35-13, Shinjuku, Tokyo", lat: 35.6902, lon: 139.7027, rating: 4.8 },
+      { name: "Mark's Tokyo", address: "1-chōme-23-14 Meguro, Tokyo", lat: 35.6353, lon: 139.7107, rating: 4.9 },
+      { name: "Ise Sueyoshi", address: "Nishiazabu, Minato, Tokyo", lat: 35.6587, lon: 139.7235, rating: 4.9 }
+    ]
+  },
+  "태국": {
+    landmarks: [
+      { name: "왕궁 (그랜드 팰리스)", desc: "태국 왕실의 화려한 궁전.", lat: 13.7500, lon: 100.4913 },
+      { name: "왓 아룬", desc: "새벽 사원이라 불리는 강변 사찰.", lat: 13.7437, lon: 100.4888 },
+      { name: "피피섬", desc: "에메랄드빛 바다로 유명한 섬.", lat: 7.7407, lon: 98.7784 },
+      { name: "치앙마이 올드시티", desc: "성곽으로 둘러싸인 옛 도시.", lat: 18.7883, lon: 98.9853 },
+      { name: "아유타야", desc: "고대 태국 왕국의 유적 도시.", lat: 14.3532, lon: 100.5686 }
+    ],
+    restaurants: [
+      { name: "RONGROS", address: "392/16 Thanon Maha Rat, Bangkok", lat: 13.7443, lon: 100.4917, rating: 4.7 },
+      { name: "Kajohn Southern Thai Cuisine", address: "245 Chakkraphatdi Phong, Bangkok", lat: 13.7560, lon: 100.5097, rating: 4.9 },
+      { name: "Baannok Bangkok", address: "34/3 Lang Suan Rd, Bangkok", lat: 13.7417, lon: 100.5434, rating: 4.9 }
+    ]
+  },
+  "베트남": {
+    landmarks: [
+      { name: "하롱베이", desc: "수천 개의 석회암 섬이 떠 있는 바다.", lat: 20.9101, lon: 107.1839 },
+      { name: "호이안 구시가지", desc: "등불이 아름다운 옛 무역 도시.", lat: 15.8801, lon: 108.3380 },
+      { name: "구찌 터널", desc: "전쟁 시기에 만들어진 지하 터널망.", lat: 11.1418, lon: 106.4534 },
+      { name: "호치민 묘", desc: "베트남 지도자의 유해가 안치된 묘.", lat: 21.0369, lon: 105.8347 },
+      { name: "닌빈 (짱안)", desc: "육지의 하롱베이라 불리는 계곡.", lat: 20.2506, lon: 105.9128 }
+    ],
+    restaurants: [
+      { name: "Hong Hoai's Restaurant", address: "P. Bát Đàn/20 P. Hàng Bồ, Hà Nội", lat: 21.0338, lon: 105.8475, rating: 4.9 },
+      { name: "MIAs restaurant", address: "22 P. Báo Khánh, Hà Nội", lat: 21.0302, lon: 105.8503, rating: 4.9 },
+      { name: "MẸT Vietnamese Restaurant", address: "42 P. Lương Văn Can, Hà Nội", lat: 21.0328, lon: 105.8504, rating: 4.9 }
+    ]
+  },
+  "인도": {
+    landmarks: [
+      { name: "타지마할", desc: "하얀 대리석의 무덤이자 사랑의 상징.", lat: 27.1751, lon: 78.0421 },
+      { name: "레드 포트", desc: "붉은 사암으로 지어진 무굴 제국의 요새.", lat: 28.6562, lon: 77.2410 },
+      { name: "암베르 성", desc: "자이푸르 언덕 위의 화려한 궁전 요새.", lat: 26.9855, lon: 75.8513 },
+      { name: "바라나시 가트", desc: "갠지스강을 따라 늘어선 계단식 강변.", lat: 25.3176, lon: 83.0064 },
+      { name: "인도 문", desc: "뭄바이 해안의 기념 아치.", lat: 18.9220, lon: 72.8347 }
+    ],
+    restaurants: [
+      { name: "Olive Bar & Kitchen", address: "Kalka Das Marg, Mehrauli, New Delhi", lat: 28.5258, lon: 77.1841, rating: 4.6 },
+      { name: "Bukhara", address: "ITC Maurya, Sardar Patel Marg, New Delhi", lat: 28.5971, lon: 77.1737, rating: 4.5 },
+      { name: "Kwality", address: "Regal Building, Connaught Place, New Delhi", lat: 28.6299, lon: 77.2173, rating: 4.4 }
+    ]
+  },
+  "싱가포르": {
+    landmarks: [
+      { name: "마리나 베이 샌즈", desc: "옥상 인피니티 풀로 유명한 랜드마크 호텔.", lat: 1.2834, lon: 103.8607 },
+      { name: "가든스 바이 더 베이", desc: "거대한 인공 나무가 있는 미래형 정원.", lat: 1.2816, lon: 103.8636 },
+      { name: "멀라이언 파크", desc: "사자 머리 물고기 몸의 싱가포르 상징 동상.", lat: 1.2868, lon: 103.8545 },
+      { name: "센토사 섬", desc: "해변과 놀이시설이 모인 리조트 섬.", lat: 1.2494, lon: 103.8303 },
+      { name: "차이나타운", desc: "화려한 사원과 옛 거리가 남은 구역.", lat: 1.2820, lon: 103.8443 }
+    ],
+    restaurants: [
+      { name: "The BOILER @ Buona Vista", address: "1 N Buona Vista Link, Singapore", lat: 1.3065, lon: 103.7929, rating: 4.8 },
+      { name: "Burnt Ends", address: "7 Dempsey Rd, Singapore", lat: 1.3046, lon: 103.8090, rating: 4.5 },
+      { name: "Candlenut", address: "17a Dempsey Rd, Singapore", lat: 1.3058, lon: 103.8101, rating: 4.4 }
+    ]
+  },
+  "필리핀": {
+    landmarks: [
+      { name: "초콜릿 힐스", desc: "초콜릿처럼 둥근 언덕이 끝없이 펼쳐진 지형.", lat: 9.8273, lon: 124.1450 },
+      { name: "바나우에 계단식 논", desc: "산비탈을 따라 만든 거대한 계단식 논.", lat: 16.9297, lon: 121.0583 },
+      { name: "보라카이 화이트비치", desc: "하얀 모래로 유명한 휴양 해변.", lat: 11.9674, lon: 121.9248 },
+      { name: "인트라무로스", desc: "스페인 식민 시대의 성벽 도시.", lat: 14.5896, lon: 120.9750 },
+      { name: "마욘 화산", desc: "완벽한 원뿔 모양으로 유명한 화산.", lat: 13.2572, lon: 123.6856 }
+    ],
+    restaurants: [
+      { name: "Ilustrado Restaurant", address: "744 Cabildo St, Intramuros, Manila", lat: 14.5879, lon: 120.9773, rating: 4.5 },
+      { name: "Blackbird Makati", address: "6752 Makati Ave, Makati City", lat: 14.5559, lon: 121.0246, rating: 4.6 },
+      { name: "Manam at the Triangle", address: "Ayala Triangle Walkways, Makati City", lat: 14.5562, lon: 121.0242, rating: 4.8 }
+    ]
+  },
+  "튀르키예": {
+    landmarks: [
+      { name: "아야소피아", desc: "비잔틴과 오스만 역사를 품은 대성당이자 모스크.", lat: 41.0086, lon: 28.9802 },
+      { name: "블루 모스크", desc: "푸른 타일로 장식된 이스탄불의 대표 모스크.", lat: 41.0054, lon: 28.9768 },
+      { name: "카파도키아", desc: "기암괴석과 열기구로 유명한 지역.", lat: 38.6431, lon: 34.8286 },
+      { name: "파묵칼레", desc: "새하얀 석회암 온천 계단.", lat: 37.9142, lon: 29.1189 },
+      { name: "톱카프 궁전", desc: "오스만 제국 술탄들이 살던 궁전.", lat: 41.0115, lon: 28.9834 }
+    ],
+    restaurants: [
+      { name: "Hidden Garden Restaurant", address: "Peykhane Sok. No:14/A, Sultanahmet, İstanbul", lat: 41.0067, lon: 28.9724, rating: 4.9 },
+      { name: "Garden 1897 Restaurant", address: "Şht. Mehmetpaşa Sok. No5, Sultanahmet, İstanbul", lat: 41.0040, lon: 28.9726, rating: 4.9 },
+      { name: "Turgut Kebab Restaurant", address: "Akbıyık Cd. No:64, Sultanahmet, İstanbul", lat: 41.0047, lon: 28.9791, rating: 4.8 }
+    ]
+  },
+  "아랍에미리트": {
+    landmarks: [
+      { name: "부르즈 할리파", desc: "세계에서 가장 높은 빌딩.", lat: 25.1972, lon: 55.2744 },
+      { name: "부르즈 알 아랍", desc: "돛단배 모양의 초호화 호텔.", lat: 25.1412, lon: 55.1853 },
+      { name: "셰이크 자이드 모스크", desc: "새하얀 대리석의 웅장한 모스크.", lat: 24.4128, lon: 54.4750 },
+      { name: "두바이 마리나", desc: "고층 빌딩이 늘어선 인공 운하 지구.", lat: 25.0805, lon: 55.1403 },
+      { name: "팜 주메이라", desc: "야자수 모양의 인공섬.", lat: 25.1124, lon: 55.1390 }
+    ],
+    restaurants: [
+      { name: "Social House", address: "The Dubai Mall, Dubai", lat: 25.1962, lon: 55.2775, rating: 4.9 },
+      { name: "Bombay Borough", address: "Gate Village, DIFC, Dubai", lat: 25.2139, lon: 55.2823, rating: 4.8 },
+      { name: "Table Otto", address: "Fashion Avenue, Dubai Mall, Dubai", lat: 25.1979, lon: 55.2756, rating: 4.8 }
+    ]
+  },
+  "이집트": {
+    landmarks: [
+      { name: "기자 피라미드", desc: "고대 이집트 파라오의 거대한 무덤.", lat: 29.9792, lon: 31.1342 },
+      { name: "스핑크스", desc: "사람 얼굴에 사자 몸을 한 거대한 석상.", lat: 29.9753, lon: 31.1376 },
+      { name: "룩소르 신전", desc: "나일강변의 고대 신전.", lat: 25.6995, lon: 32.6421 },
+      { name: "왕가의 계곡", desc: "파라오들의 무덤이 모인 계곡.", lat: 25.7402, lon: 32.6014 },
+      { name: "아부심벨", desc: "거대한 파라오 석상이 늘어선 암굴 신전.", lat: 22.3372, lon: 31.6258 }
+    ],
+    restaurants: [
+      { name: "Al Khal Egyptian Restaurant", address: "Omar Ibn El-Khattab, Heliopolis, Cairo", lat: 30.0724, lon: 31.3465, rating: 4.8 },
+      { name: "La Terrace Restaurant & Lounge", address: "22 Taha Hussein, Zamalek, Cairo", lat: 30.0675, lon: 31.2196, rating: 4.6 },
+      { name: "Zitouni", address: "1089 Nile Corniche, Qasr El Nil, Cairo", lat: 30.0361, lon: 31.2295, rating: 4.6 }
+    ]
+  },
+  "남아프리카공화국": {
+    landmarks: [
+      { name: "테이블 마운틴", desc: "케이프타운을 내려다보는 평평한 산.", lat: -33.9628, lon: 18.4098 },
+      { name: "희망봉", desc: "아프리카 대륙의 남서쪽 끝자락.", lat: -34.3568, lon: 18.4740 },
+      { name: "크루거 국립공원", desc: "빅5를 볼 수 있는 대표 사파리 공원.", lat: -23.9884, lon: 31.5547 },
+      { name: "로벤 섬", desc: "넬슨 만델라가 수감되었던 섬.", lat: -33.8067, lon: 18.3667 },
+      { name: "V&A 워터프론트", desc: "항구를 개조한 쇼핑·관광 지구.", lat: -33.9036, lon: 18.4199 }
+    ],
+    restaurants: [
+      { name: "Belly of the Beast", address: "110 Harrington St, Cape Town", lat: -33.9294, lon: 18.4226, rating: 4.8 },
+      { name: "Reverie Social Table", address: "226A Lower Main Rd, Observatory, Cape Town", lat: -33.9313, lon: 18.4658, rating: 4.9 },
+      { name: "Kloof Street House", address: "30 Kloof St, Gardens, Cape Town", lat: -33.9282, lon: 18.4121, rating: 4.4 }
+    ]
+  },
+  "케냐": {
+    landmarks: [
+      { name: "마사이마라", desc: "대이동으로 유명한 야생동물 보호구역.", lat: -1.5083, lon: 35.1439 },
+      { name: "케냐산", desc: "아프리카에서 두 번째로 높은 산.", lat: -0.1521, lon: 37.3084 },
+      { name: "나이로비 국립공원", desc: "도시 바로 옆에 있는 독특한 사파리 공원.", lat: -1.3733, lon: 36.8570 },
+      { name: "암보셀리 국립공원", desc: "킬리만자로를 배경으로 코끼리를 볼 수 있는 공원.", lat: -2.6528, lon: 37.2606 },
+      { name: "라무 올드타운", desc: "스와힐리 문화가 살아있는 옛 항구 도시.", lat: -2.2717, lon: 40.9020 }
+    ],
+    restaurants: [
+      { name: "CRAVE KENYA - KILIMANI", address: "Ring Rd Kilimani, Nairobi", lat: -1.2933, lon: 36.7872, rating: 4.8 },
+      { name: "Cultiva Farm Kenya", address: "Pofu Rd, Nairobi", lat: -1.3571, lon: 36.7391, rating: 4.7 },
+      { name: "Nairobi Street Kitchen", address: "1870 Mpaka Rd, Nairobi", lat: -1.2656, lon: 36.8042, rating: 4.5 }
+    ]
+  },
+  "모로코": {
+    landmarks: [
+      { name: "제마 엘프나 광장", desc: "마라케시의 활기찬 전통 시장 광장.", lat: 31.6258, lon: -7.9891 },
+      { name: "하산 2세 모스크", desc: "바다를 마주한 세계에서 가장 큰 모스크 중 하나.", lat: 33.6084, lon: -7.6327 },
+      { name: "쉐프샤우엔", desc: "파란색으로 물든 산악 마을.", lat: 35.1688, lon: -5.2636 },
+      { name: "메르주가 (사하라 사막)", desc: "사하라 사막의 붉은 모래 언덕.", lat: 31.0801, lon: -4.0133 },
+      { name: "페스 메디나", desc: "미로 같은 골목이 이어지는 옛 도시.", lat: 34.0658, lon: -4.9749 }
+    ],
+    restaurants: [
+      { name: "Safran by Kôya", address: "Rue Jbel Lakhdar, Marrakech", lat: 31.6276, lon: -7.9946, rating: 4.7 },
+      { name: "Le Grand Bazar Marrakech", address: "Zanket El Guassabine, Marrakech", lat: 31.6270, lon: -7.9869, rating: 4.8 },
+      { name: "La fontaine des épices", address: "131 Rue Mouassine, Marrakech", lat: 31.6310, lon: -7.9894, rating: 4.7 }
+    ]
+  },
+  "호주": {
+    landmarks: [
+      { name: "시드니 오페라 하우스", desc: "조개 껍데기 모양의 상징적인 공연장.", lat: -33.8568, lon: 151.2153 },
+      { name: "울룰루", desc: "붉은 사막 한가운데 솟은 거대한 바위.", lat: -25.3444, lon: 131.0369 },
+      { name: "그레이트 배리어 리프", desc: "세계 최대 규모의 산호초 지대.", lat: -18.2871, lon: 147.6992 },
+      { name: "본다이 비치", desc: "시드니를 대표하는 서핑 해변.", lat: -33.8908, lon: 151.2743 },
+      { name: "시드니 하버 브리지", desc: "시드니 항구를 가로지르는 대형 아치 다리.", lat: -33.8523, lon: 151.2108 }
+    ],
+    restaurants: [
+      { name: "Hustlers. Syd", address: "LG/24 York St, Sydney", lat: -33.8682, lon: 151.2061, rating: 4.7 },
+      { name: "Grana", address: "5-7 Young St, Sydney", lat: -33.8625, lon: 151.2109, rating: 4.5 },
+      { name: "The Sanderson Sydney", address: "285 George St, Sydney", lat: -33.8655, lon: 151.2069, rating: 4.7 }
+    ]
+  },
+  "뉴질랜드": {
+    landmarks: [
+      { name: "밀포드 사운드", desc: "깎아지른 절벽 사이의 신비로운 피오르.", lat: -44.6414, lon: 167.9294 },
+      { name: "호비튼", desc: "영화 반지의 제왕 속 호빗 마을 세트장.", lat: -37.8722, lon: 175.6816 },
+      { name: "스카이타워", desc: "오클랜드의 상징적인 전망탑.", lat: -36.8485, lon: 174.7633 },
+      { name: "로토루아", desc: "지열 활동과 마오리 문화로 유명한 지역.", lat: -38.1368, lon: 176.2497 },
+      { name: "피오르드랜드 국립공원", desc: "웅장한 피오르와 산이 어우러진 국립공원.", lat: -45.4142, lon: 167.7185 }
+    ],
+    restaurants: [
+      { name: "Onslow", address: "9 Princes Street, Auckland", lat: -36.8477, lon: 174.7700, rating: 4.8 },
+      { name: "alma", address: "130 Quay Street, Auckland", lat: -36.8441, lon: 174.7692, rating: 4.7 },
+      { name: "Milenta", address: "210/218 Victoria Street West, Auckland", lat: -36.8484, lon: 174.7548, rating: 4.8 }
+    ]
+  }
+};
+
+const select = document.getElementById("country-select");
+const placeholder = document.createElement("option");
+placeholder.textContent = "나라를 선택하세요";
+placeholder.value = "";
+select.appendChild(placeholder);
+Object.keys(DATA).forEach(name => {
+  const opt = document.createElement("option");
+  opt.value = name;
+  opt.textContent = name;
+  select.appendChild(opt);
+});
+
+const emptyState = document.getElementById("empty-state");
+const content = document.getElementById("content");
+const landmarkGrid = document.getElementById("landmark-grid");
+const restaurantGrid = document.getElementById("restaurant-grid");
+const viewerWrap = document.getElementById("viewer-wrap");
+const viewerTitle = document.getElementById("viewer-title");
+const viewerDesc = document.getElementById("viewer-desc");
+const streetviewFrame = document.getElementById("streetview-frame");
+const viewerMapsLink = document.getElementById("viewer-maps-link");
+
+function streetviewUrl(lat, lon) {
+  return "https://maps.google.com/maps?layer=c&cbll=" + lat + "," + lon + "&cbp=11,0,0,0,0&output=svembed";
+}
+function mapsUrl(lat, lon) {
+  return "https://www.google.com/maps/search/?api=1&query=" + lat + "," + lon;
+}
+
+function showViewer(name, desc, lat, lon) {
+  viewerTitle.textContent = name;
+  viewerDesc.textContent = desc || "";
+  streetviewFrame.src = streetviewUrl(lat, lon);
+  viewerMapsLink.href = mapsUrl(lat, lon);
+  viewerWrap.style.display = "block";
+  viewerWrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+  document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+}
+
+function makeCard(item, isRestaurant) {
+  const card = document.createElement("div");
+  card.className = "card";
+  const nameEl = document.createElement("p");
+  nameEl.className = "card-name";
+  nameEl.textContent = item.name;
+  if (isRestaurant && item.rating) {
+    const badge = document.createElement("span");
+    badge.className = "rating-badge";
+    badge.textContent = "★ " + item.rating;
+    nameEl.appendChild(badge);
+  }
+  card.appendChild(nameEl);
+
+  if (isRestaurant) {
+    const meta = document.createElement("p");
+    meta.className = "card-meta";
+    meta.textContent = item.address;
+    card.appendChild(meta);
+  } else {
+    const desc = document.createElement("p");
+    desc.className = "card-desc";
+    desc.textContent = item.desc;
+    card.appendChild(desc);
+  }
+
+  card.addEventListener("click", () => {
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+    card.classList.add("active");
+    showViewer(item.name, isRestaurant ? item.address : item.desc, item.lat, item.lon);
+  });
+  return card;
+}
+
+select.addEventListener("change", () => {
+  const country = DATA[select.value];
+  if (!country) {
+    emptyState.style.display = "block";
+    content.style.display = "none";
+    viewerWrap.style.display = "none";
+    return;
+  }
+  emptyState.style.display = "none";
+  content.style.display = "block";
+  viewerWrap.style.display = "none";
+
+  landmarkGrid.innerHTML = "";
+  country.landmarks.forEach(l => landmarkGrid.appendChild(makeCard(l, false)));
+
+  restaurantGrid.innerHTML = "";
+  country.restaurants.forEach(r => restaurantGrid.appendChild(makeCard(r, true)));
+});
+</script>
+
+
+</body></html>

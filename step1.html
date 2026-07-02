@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!-- saved from url=(0163)file:///C:/Users/%EC%A0%95%EC%A7%80%EC%9C%A4/Downloads/%EC%84%9C%EC%9A%B8%EA%B3%BC_%EC%84%B8%EA%B3%84%EC%A7%80%EB%8F%84_%EA%B1%B0%EB%A6%AC%EC%B0%BE%EA%B8%B0_1.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서울과 세계 여러 나라 사이의 거리 알아보기</title>
+<style>
+  :root {
+    --surface-0: #f7f6f2;
+    --surface-1: #f1efe8;
+    --surface-2: #ffffff;
+    --text-primary: #1c1c1a;
+    --text-secondary: #5f5e5a;
+    --text-muted: #888780;
+    --border: #d3d1c7;
+    --border-strong: #b4b2a9;
+    --radius: 8px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-0: #1c1c1a;
+      --surface-1: #2c2c2a;
+      --surface-2: #232321;
+      --text-primary: #f1efe8;
+      --text-secondary: #b4b2a9;
+      --text-muted: #888780;
+      --border: #444441;
+      --border-strong: #5f5e5a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--surface-0);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Helvetica, Arial, sans-serif;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 6px; }
+  .sub { font-size: 13px; color: var(--text-secondary); margin: 0 0 16px; }
+  select {
+    height: 36px;
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface-2);
+    color: var(--text-primary);
+    padding: 0 10px;
+    font-size: 14px;
+  }
+  #legend { display:flex; flex-wrap:wrap; gap:14px; margin:12px 0 16px; font-size:12px; color:var(--text-secondary); }
+  .legend-item { display:flex; align-items:center; gap:6px; }
+  .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+  #info {
+    background: var(--surface-1);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    min-height: 96px;
+    display: flex;
+    align-items: center;
+  }
+  #info p { margin: 0; }
+  .badge { display:inline-block; font-size:12px; padding:3px 10px; border-radius: var(--radius); }
+  footer { margin-top: 24px; font-size: 12px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>서울과 세계 여러 나라 사이의 거리 알아보기</h1>
+  <p class="sub">지도의 점이나 아래 목록에서 나라를 선택해 보세요. 서울과의 직선거리와 대륙을 알려드려요.</p>
+
+  <svg id="map" width="100%" viewBox="0 0 680 340" style="display:block; background:var(--surface-2); border-radius:12px; border:0.5px solid var(--border);"><g></g><g><line x1="565.7386666666666" y1="103.2151111111111" x2="203.0455111111111" y2="100.83164444444442" stroke="#7F77DD" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.8"></line></g><g><circle cx="565.7386666666666" cy="103.2151111111111" r="5" fill="var(--text-primary)" stroke="var(--surface-2)" stroke-width="1.5"></circle><text x="565.7386666666666" y="93.2151111111111" text-anchor="middle" font-size="14px" font-weight="600" fill="var(--text-primary)">서울</text><circle cx="203.0455111111111" cy="100.83164444444442" r="8" fill="#7F77DD" stroke="var(--surface-2)" stroke-width="2" style="cursor: pointer;"></circle><circle cx="205.4272" cy="89.25066666666666" r="5" fill="#7F77DD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="163.76319999999998" cy="135.45315555555555" r="5" fill="#7F77DD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="254.79253333333332" cy="198.0535111111111" r="5" fill="#1D9E75" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="236.2104888888889" cy="231.5176888888889" r="5" fill="#1D9E75" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="203.0350222222222" cy="191.41582222222223" r="5" fill="#1D9E75" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="339.77315555555555" cy="78.43128888888889" r="5" fill="#378ADD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="344.1816888888889" cy="83.14382222222221" r="5" fill="#378ADD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="363.8311111111111" cy="76.6311111111111" r="5" fill="#378ADD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="362.21582222222224" cy="95.50613333333334" r="5" fill="#378ADD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="333.41546666666665" cy="98.1479111111111" r="5" fill="#378ADD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="353.23982222222224" cy="86.53688888888888" r="5" fill="#378ADD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="406.8752" cy="70.87857777777776" r="5" fill="#378ADD" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="546.9464888888889" cy="99.05919999999999" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="588.3408" cy="106.55199999999999" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="518.6698666666666" cy="145.54435555555557" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="528.1496888888889" cy="132.61724444444445" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="477.2604444444445" cy="119.13084444444443" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="524.5685333333333" cy="167.59626666666668" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="555.0830222222222" cy="144.04533333333333" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="398.41724444444446" cy="99.00728888888888" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="436.67075555555556" cy="126.5264" r="5" fill="#D85A30" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="395.53013333333337" cy="116.58773333333332" r="5" fill="#BA7517" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="390.1854222222222" cy="215.77404444444446" r="5" fill="#BA7517" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="405.4611555555556" cy="172.29706666666667" r="5" fill="#BA7517" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="327.8225777777778" cy="109.5184" r="5" fill="#BA7517" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="605.12" cy="232.72160000000002" r="5" fill="#D4537E" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle><circle cx="650.7132444444444" cy="243.39822222222222" r="5" fill="#D4537E" stroke="var(--surface-2)" stroke-width="1.2" style="cursor: pointer;"></circle></g></svg>
+
+  <div id="legend"><div class="legend-item"><span class="dot" style="background: rgb(216, 90, 48);"></span><span>아시아</span></div><div class="legend-item"><span class="dot" style="background: rgb(55, 138, 221);"></span><span>유럽</span></div><div class="legend-item"><span class="dot" style="background: rgb(186, 117, 23);"></span><span>아프리카</span></div><div class="legend-item"><span class="dot" style="background: rgb(127, 119, 221);"></span><span>북아메리카</span></div><div class="legend-item"><span class="dot" style="background: rgb(29, 158, 117);"></span><span>남아메리카</span></div><div class="legend-item"><span class="dot" style="background: rgb(212, 83, 126);"></span><span>오세아니아</span></div></div>
+
+  <div style="display:flex; align-items:center; gap:8px; margin:0 0 16px;">
+    <label for="country-select" style="font-size:13px; color:var(--text-secondary); white-space:nowrap;">나라 선택</label>
+    <select id="country-select" style="flex:1;"><option value="">나라를 선택하세요</option><optgroup label="북아메리카"><option value="미국">미국</option><option value="캐나다">캐나다</option><option value="멕시코">멕시코</option></optgroup><optgroup label="남아메리카"><option value="브라질">브라질</option><option value="아르헨티나">아르헨티나</option><option value="페루">페루</option></optgroup><optgroup label="유럽"><option value="영국">영국</option><option value="프랑스">프랑스</option><option value="독일">독일</option><option value="이탈리아">이탈리아</option><option value="스페인">스페인</option><option value="스위스">스위스</option><option value="러시아">러시아</option></optgroup><optgroup label="아시아"><option value="중국">중국</option><option value="일본">일본</option><option value="태국">태국</option><option value="베트남">베트남</option><option value="인도">인도</option><option value="싱가포르">싱가포르</option><option value="필리핀">필리핀</option><option value="튀르키예">튀르키예</option><option value="아랍에미리트">아랍에미리트</option></optgroup><optgroup label="아프리카"><option value="이집트">이집트</option><option value="남아프리카공화국">남아프리카공화국</option><option value="케냐">케냐</option><option value="모로코">모로코</option></optgroup><optgroup label="오세아니아"><option value="호주">호주</option><option value="뉴질랜드">뉴질랜드</option></optgroup></select>
+  </div>
+
+  <div id="info">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;width:100%;">
+        <div>
+          <p style="margin:0 0 4px;font-size:16px;font-weight:600;">미국</p>
+          <span class="badge" style="background:#EEEDFE;color:#3C3489;">북아메리카</span>
+        </div>
+        <div style="text-align:right;">
+          <p style="margin:0;font-size:12px;color:var(--text-secondary);">서울에서 직선거리</p>
+          <p style="margin:0;font-size:22px;font-weight:600;">11,164 km</p>
+        </div>
+      </div>
+    </div>
+
+  <footer>거리는 비행 항로가 아니라 지구 위 두 지점 사이의 최단 직선거리(대권거리)를 계산한 값입니다.</footer>
+</div>
+
+<script src="./서울과 세계 여러 나라 사이의 거리 알아보기_files/d3.min.js.다운로드"></script>
+<script src="./서울과 세계 여러 나라 사이의 거리 알아보기_files/topojson-client.min.js.다운로드"></script>
+<script>
+(function(){
+  const seoul = { lon: 126.9780, lat: 37.5665 };
+
+  const continentColor = {
+    "아시아": "#D85A30",
+    "유럽": "#378ADD",
+    "아프리카": "#BA7517",
+    "북아메리카": "#7F77DD",
+    "남아메리카": "#1D9E75",
+    "오세아니아": "#D4537E"
+  };
+  const continentBg = {
+    "아시아": "#FAECE7", "유럽": "#E6F1FB", "아프리카": "#FAEEDA",
+    "북아메리카": "#EEEDFE", "남아메리카": "#E1F5EE", "오세아니아": "#FBEAF0"
+  };
+  const continentText = {
+    "아시아": "#712B13", "유럽": "#0C447C", "아프리카": "#633806",
+    "북아메리카": "#3C3489", "남아메리카": "#085041", "오세아니아": "#72243E"
+  };
+
+  const countries = [
+    { kr:"미국", continent:"북아메리카", lon:-77.0369, lat:38.9072 },
+    { kr:"캐나다", continent:"북아메리카", lon:-75.6972, lat:45.4215 },
+    { kr:"멕시코", continent:"북아메리카", lon:-99.1332, lat:19.4326 },
+    { kr:"브라질", continent:"남아메리카", lon:-47.9292, lat:-15.7801 },
+    { kr:"아르헨티나", continent:"남아메리카", lon:-58.3816, lat:-34.6037 },
+    { kr:"페루", continent:"남아메리카", lon:-77.0428, lat:-12.0464 },
+    { kr:"영국", continent:"유럽", lon:-0.1276, lat:51.5074 },
+    { kr:"프랑스", continent:"유럽", lon:2.3522, lat:48.8566 },
+    { kr:"독일", continent:"유럽", lon:13.4050, lat:52.5200 },
+    { kr:"이탈리아", continent:"유럽", lon:12.4964, lat:41.9028 },
+    { kr:"스페인", continent:"유럽", lon:-3.7038, lat:40.4168 },
+    { kr:"스위스", continent:"유럽", lon:7.4474, lat:46.9480 },
+    { kr:"러시아", continent:"유럽", lon:37.6173, lat:55.7558 },
+    { kr:"중국", continent:"아시아", lon:116.4074, lat:39.9042 },
+    { kr:"일본", continent:"아시아", lon:139.6917, lat:35.6895 },
+    { kr:"태국", continent:"아시아", lon:100.5018, lat:13.7563 },
+    { kr:"베트남", continent:"아시아", lon:105.8342, lat:21.0278 },
+    { kr:"인도", continent:"아시아", lon:77.2090, lat:28.6139 },
+    { kr:"싱가포르", continent:"아시아", lon:103.8198, lat:1.3521 },
+    { kr:"필리핀", continent:"아시아", lon:120.9842, lat:14.5995 },
+    { kr:"튀르키예", continent:"아시아", lon:32.8597, lat:39.9334 },
+    { kr:"아랍에미리트", continent:"아시아", lon:54.3773, lat:24.4539 },
+    { kr:"이집트", continent:"아프리카", lon:31.2357, lat:30.0444 },
+    { kr:"남아프리카공화국", continent:"아프리카", lon:28.2293, lat:-25.7479 },
+    { kr:"케냐", continent:"아프리카", lon:36.8219, lat:-1.2921 },
+    { kr:"모로코", continent:"아프리카", lon:-6.8498, lat:34.0209 },
+    { kr:"호주", continent:"오세아니아", lon:149.1300, lat:-35.2809 },
+    { kr:"뉴질랜드", continent:"오세아니아", lon:174.7762, lat:-41.2865 }
+  ];
+
+  function haversine(lon1,lat1,lon2,lat2){
+    const R = 6371;
+    const toRad = d => d * Math.PI / 180;
+    const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
+    const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+
+  countries.forEach(c => { c.dist = Math.round(haversine(seoul.lon, seoul.lat, c.lon, c.lat)); });
+
+  const width = 680, height = 340;
+  const svg = d3.select("#map");
+  const projection = d3.geoEquirectangular().fitSize([width-20, height-20], {type:"Sphere"}).translate([width/2, height/2]);
+  const path = d3.geoPath(projection);
+
+  const g = svg.append("g");
+  const lineLayer = svg.append("g");
+  const markerLayer = svg.append("g");
+
+  fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+    .then(r => r.json())
+    .then(world => {
+      const land = topojson.feature(world, world.objects.countries);
+      g.selectAll("path")
+        .data(land.features)
+        .join("path")
+        .attr("d", path)
+        .attr("fill", "var(--surface-1)")
+        .attr("stroke", "var(--border-strong)")
+        .attr("stroke-width", 0.5);
+      drawMarkers();
+    })
+    .catch(() => { drawMarkers(); });
+
+  function drawMarkers(){
+    const seoulXY = projection([seoul.lon, seoul.lat]);
+
+    markerLayer.append("circle")
+      .attr("cx", seoulXY[0]).attr("cy", seoulXY[1]).attr("r", 5)
+      .attr("fill", "var(--text-primary)").attr("stroke", "var(--surface-2)").attr("stroke-width", 1.5);
+    markerLayer.append("text")
+      .attr("x", seoulXY[0]).attr("y", seoulXY[1]-10)
+      .attr("text-anchor","middle")
+      .attr("font-size","14px")
+      .attr("font-weight","600")
+      .attr("fill","var(--text-primary)")
+      .text("서울");
+
+    countries.forEach(c => {
+      const xy = projection([c.lon, c.lat]);
+      c.x = xy[0]; c.y = xy[1];
+      c.el = markerLayer.append("circle")
+        .attr("cx", xy[0]).attr("cy", xy[1]).attr("r", 5)
+        .attr("fill", continentColor[c.continent])
+        .attr("stroke", "var(--surface-2)").attr("stroke-width", 1.2)
+        .style("cursor","pointer")
+        .on("click", () => selectCountry(c));
+    });
+
+    buildLegend();
+    buildSelect();
+  }
+
+  function buildLegend(){
+    const legend = document.getElementById("legend");
+    Object.keys(continentColor).forEach(name => {
+      const item = document.createElement("div");
+      item.className = "legend-item";
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      dot.style.background = continentColor[name];
+      item.appendChild(dot);
+      const label = document.createElement("span");
+      label.textContent = name;
+      item.appendChild(label);
+      legend.appendChild(item);
+    });
+  }
+
+  function buildSelect(){
+    const select = document.getElementById("country-select");
+    const groups = {};
+    countries.forEach(c => {
+      if (!groups[c.continent]) groups[c.continent] = [];
+      groups[c.continent].push(c);
+    });
+    const placeholder = document.createElement("option");
+    placeholder.textContent = "나라를 선택하세요";
+    placeholder.value = "";
+    select.appendChild(placeholder);
+    Object.keys(groups).forEach(cont => {
+      const og = document.createElement("optgroup");
+      og.label = cont;
+      groups[cont].forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c.kr;
+        opt.textContent = c.kr;
+        og.appendChild(opt);
+      });
+      select.appendChild(og);
+    });
+    select.addEventListener("change", () => {
+      const c = countries.find(x => x.kr === select.value);
+      if (c) selectCountry(c);
+    });
+  }
+
+  let lastSelected = null;
+
+  function selectCountry(c){
+    if (lastSelected) lastSelected.el.attr("r", 5).attr("stroke-width", 1.2);
+    c.el.attr("r", 8).attr("stroke-width", 2);
+    lastSelected = c;
+
+    document.getElementById("country-select").value = c.kr;
+
+    const seoulXY = projection([seoul.lon, seoul.lat]);
+    lineLayer.selectAll("line").remove();
+    lineLayer.append("line")
+      .attr("x1", seoulXY[0]).attr("y1", seoulXY[1])
+      .attr("x2", c.x).attr("y2", c.y)
+      .attr("stroke", continentColor[c.continent])
+      .attr("stroke-width", 1.2)
+      .attr("stroke-dasharray", "4 3")
+      .attr("opacity", 0.8);
+
+    const info = document.getElementById("info");
+    info.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;width:100%;">
+        <div>
+          <p style="margin:0 0 4px;font-size:16px;font-weight:600;">${c.kr}</p>
+          <span class="badge" style="background:${continentBg[c.continent]};color:${continentText[c.continent]};">${c.continent}</span>
+        </div>
+        <div style="text-align:right;">
+          <p style="margin:0;font-size:12px;color:var(--text-secondary);">서울에서 직선거리</p>
+          <p style="margin:0;font-size:22px;font-weight:600;">${c.dist.toLocaleString()} km</p>
+        </div>
+      </div>
+    `;
+  }
+})();
+</script>
+
+
+</body></html>
