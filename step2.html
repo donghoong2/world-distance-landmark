@@ -111,7 +111,7 @@
 
   <select id="country-select"><option value="">나라를 선택하세요</option><option value="미국">미국</option><option value="캐나다">캐나다</option><option value="멕시코">멕시코</option><option value="브라질">브라질</option><option value="아르헨티나">아르헨티나</option><option value="페루">페루</option><option value="영국">영국</option><option value="프랑스">프랑스</option><option value="독일">독일</option><option value="이탈리아">이탈리아</option><option value="스페인">스페인</option><option value="스위스">스위스</option><option value="러시아">러시아</option><option value="중국">중국</option><option value="일본">일본</option><option value="태국">태국</option><option value="베트남">베트남</option><option value="인도">인도</option><option value="싱가포르">싱가포르</option><option value="필리핀">필리핀</option><option value="튀르키예">튀르키예</option><option value="아랍에미리트">아랍에미리트</option><option value="이집트">이집트</option><option value="남아프리카공화국">남아프리카공화국</option><option value="케냐">케냐</option><option value="모로코">모로코</option><option value="호주">호주</option><option value="뉴질랜드">뉴질랜드</option></select>
 
-  <div id="viewer-wrap" style="display: block;">
+  <div id="viewer-wrap" style="display: none;">
     <p id="viewer-title">자유의 여신상</p>
     <p id="viewer-desc">뉴욕 항구에 서 있는 자유의 상징 조각상.</p>
     <iframe id="streetview-frame" loading="lazy" allowfullscreen="" src="https://maps.google.com/maps?layer=c&cbll=40.6892,-74.0445&cbp=11,0,0,0,0&output=svembed"></iframe>
@@ -120,7 +120,7 @@
 
   <div id="empty-state" style="display: none;">위에서 나라를 선택해 보세요.</div>
 
-  <div id="content" style="display: block;">
+  <div id="content" style="display: none;">
     <h2>대표 랜드마크</h2>
     <div class="grid" id="landmark-grid"><div class="card"><p class="card-name">자유의 여신상</p><p class="card-desc">뉴욕 항구에 서 있는 자유의 상징 조각상.</p></div><div class="card"><p class="card-name">금문교</p><p class="card-desc">샌프란시스코의 상징적인 주황색 현수교.</p></div><div class="card"><p class="card-name">그랜드 캐니언</p><p class="card-desc">콜로라도강이 깎아낸 거대한 협곡.</p></div><div class="card"><p class="card-name">백악관</p><p class="card-desc">미국 대통령이 거주하고 집무하는 관저.</p></div><div class="card"><p class="card-name">타임스스퀘어</p><p class="card-desc">뉴욕 맨해튼의 번화한 광장이자 상업 중심지.</p></div></div>
 
@@ -528,6 +528,7 @@ const DATA = {
 };
 
 const select = document.getElementById("country-select");
+select.innerHTML = "";
 const placeholder = document.createElement("option");
 placeholder.textContent = "나라를 선택하세요";
 placeholder.value = "";
